@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_NAME}"
+  db-gui:
+    image: dpage/pgadmin4
+    ports:
+      - 5001:80
+    volumes:
+      - db-gui:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "${PGADMIN_EMAIL}"
+      PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_PASSWORD}"
+
+
+volumes:
+  db:
+  db-gui:
