@@ -19,6 +19,14 @@ public class Product implements Serializable{
 	
 	private BigDecimal value;
 
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
