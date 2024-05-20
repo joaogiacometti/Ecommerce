@@ -1,25 +1,25 @@
-package com.example.springboot.services;
+package com.example.springboot.Business.Services;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.example.springboot.Business.Exceptions.ProductNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.springboot.dto.ProductDto;
-import com.example.springboot.exceptions.ProductNotFoundException;
-import com.example.springboot.interfaces.IProductService;
-import com.example.springboot.models.Product;
-import com.example.springboot.repositories.ProductRepository;
+import com.example.springboot.Core.Dto.ProductDto;
+import com.example.springboot.Core.Interfaces.Services.IProductService;
+import com.example.springboot.Core.Models.Product;
+import com.example.springboot.Data.Repositories.IProductRepository;
 
 @Service
 public class ProductService implements IProductService{
-	private final ProductRepository repository;
+	private final IProductRepository repository;
 
 	@Autowired
-	public ProductService(ProductRepository repository) {
+	public ProductService(IProductRepository repository) {
 		this.repository = repository; 
 	}
 
@@ -39,32 +39,30 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	public Optional<Product> getById(UUID id) throws Exception {
+	public Product getById(UUID id) throws Exception {
 		Optional<Product> product = repository.findById(id);
 		
 		if(product.isEmpty()) {
 			throw new ProductNotFoundException("Product not found");
 		}
 		
-		return product;
+		return product.get();
 	}
 
 	@Override
-	public Optional<Product> update(UUID id, ProductDto productDto) throws Exception {
-		Optional<Product> product = getById(id);
+	public Product update(UUID id, ProductDto productDto) throws Exception {
+		Product product = getById(id);
+
+        BeanUtils.copyProperties(productDto, product);
 		
-		var newProduct = product.get();
-		BeanUtils.copyProperties(productDto, newProduct);
-		
-		repository.save(newProduct);
+		repository.save(product);
 		
 		return product;
 	}
 
 	@Override
 	public void delete(UUID id) throws Exception  {
-		Optional<Product> product = getById(id);
 		
-		repository.delete(product.get());
+		repository.delete(getById(id));
 	}
 }
