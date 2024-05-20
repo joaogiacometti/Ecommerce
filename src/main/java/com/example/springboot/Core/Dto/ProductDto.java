@@ -1,4 +1,4 @@
-package com.example.springboot.dto;
+package com.example.springboot.Core.Dto;
 
 import java.math.BigDecimal;
 
