@@ -4,7 +4,6 @@ import com.example.springboot.Core.Dto.UserDto;
 import com.example.springboot.Core.Dto.LoginResponseDto;
 import com.example.springboot.Core.Interfaces.Services.ITokenService;
 import com.example.springboot.Core.Models.User;
-import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
