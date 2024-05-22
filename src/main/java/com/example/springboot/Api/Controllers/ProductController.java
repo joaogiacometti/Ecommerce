@@ -29,7 +29,7 @@ public class ProductController {
 		this.service = service;
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PermitAll
 	@PostMapping("/create")
 	public ResponseEntity<Product> create(@RequestBody @Valid ProductDto productDto){
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(productDto));

@@ -7,6 +7,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record ProductDto(
 		@NotBlank String name, 
-		@NotNull BigDecimal value,
+		@NotNull BigDecimal price,
 		@NotBlank String image
 ){}

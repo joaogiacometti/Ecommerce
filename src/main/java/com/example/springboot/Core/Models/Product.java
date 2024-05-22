@@ -20,7 +20,7 @@ public class Product implements Serializable{
 	
 	private String name;
 	
-	private BigDecimal value;
+	private BigDecimal price;
 
 	private String image;
 }
