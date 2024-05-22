@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Product } from '../interfaces/Product';
+import { Product } from '@/interfaces/Product';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchData = async (): Promise<Product[]> => {

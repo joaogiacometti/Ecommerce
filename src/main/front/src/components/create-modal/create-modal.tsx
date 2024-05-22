@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useProductMutation } from "../../hooks/useProductsMutate";
-import { Product } from "../../interfaces/Product";
+import { useProductMutation } from "@/hooks/useProductsMutate";
+import { Product } from "@/interfaces/Product";
 
 import "./create-modal.css";
 

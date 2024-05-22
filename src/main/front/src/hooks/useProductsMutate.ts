@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Product } from '../interfaces/Product';
+import { Product } from '@/interfaces/Product';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const postData = async (data: Product): Promise<any> => {

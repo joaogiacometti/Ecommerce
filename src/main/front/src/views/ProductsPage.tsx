@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./products.css";
-import { Card } from "../components/card/card";
-import { CreateModal } from "../components/create-modal/create-modal";
-import { useProduct } from "../hooks/useProducts";
+import { Card } from "@/components/card/card";
+import { CreateModal } from "@/components/create-modal/create-modal";
+import { useProduct } from "@/hooks/useProducts";
 import { Link } from "react-router-dom";
 
 function ProductsPage() {
