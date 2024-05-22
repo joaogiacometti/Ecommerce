@@ -1,9 +1,9 @@
 import { useState } from "react";
-import "./products.css";
-import { Card } from "@/components/card/card";
-import { CreateModal } from "@/components/create-modal/create-modal";
+import { CardComponent } from "@/components/CardComponent";
+import { CreateModal } from "@/components/CreateModal";
 import { useProduct } from "@/hooks/useProducts";
-import { Link } from "react-router-dom";
+import NavBar from "@/components/NavBar";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
 function ProductsPage() {
   const { data } = useProduct();
@@ -14,23 +14,43 @@ function ProductsPage() {
   };
 
   return (
-    <div className="container">
-      <Link to="/">Home</Link>
-
-      <h1>Products</h1>
-      <div className="card-grid">
-        {data?.map((product) => (
-          <Card
-            key={product.id}
-            price={product.price}
-            name={product.name}
-            image={product.image}
-          />
-        ))}
-      </div>
-      {createModal && <CreateModal closeModal={handleOpenCreateModal} />}
-      <button onClick={handleOpenCreateModal}>Cadastrar</button>
-    </div>
+    <>
+      <NavBar></NavBar>
+      <Container>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          mt={5}
+          mb={3}
+        >
+          <Typography variant="h2" gutterBottom>
+            Products
+          </Typography>
+        </Box>
+        <Grid container spacing={3}>
+          {data?.map((product) => (
+            <Grid item key={product.id} xs={12} sm={6} md={4}>
+              <CardComponent
+                price={product.price}
+                name={product.name}
+                image={product.image}
+              />
+            </Grid>
+          ))}
+        </Grid>
+        {createModal && <CreateModal closeModal={handleOpenCreateModal} />}
+        <Box display="flex" justifyContent="center" mt={4}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpenCreateModal}
+          >
+            Create
+          </Button>
+        </Box>
+      </Container>
+    </>
   );
 }
 
