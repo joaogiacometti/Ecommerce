@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { CardComponent } from "@/components/CardComponent";
-import { CreateModal } from "@/components/CreateModal";
+import { CreateProduct } from "@/components/CreateProduct";
 import { useProduct } from "@/hooks/useProducts";
 import NavBar from "@/components/NavBar";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
 function ProductsPage() {
   const { data } = useProduct();
-  const [createModal, setCreateModal] = useState(false);
+  const [modal, setModal] = useState(false);
 
-  const handleOpenCreateModal = () => {
-    setCreateModal(!createModal);
+  const handleOpenModal = () => {
+    setModal(!modal);
   };
 
   return (
@@ -39,13 +39,9 @@ function ProductsPage() {
             </Grid>
           ))}
         </Grid>
-        {createModal && <CreateModal closeModal={handleOpenCreateModal} />}
+        {modal && <CreateProduct closeModal={handleOpenModal} />}
         <Box display="flex" justifyContent="center" mt={4}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleOpenCreateModal}
-          >
+          <Button variant="contained" color="primary" onClick={handleOpenModal}>
             Create
           </Button>
         </Box>
