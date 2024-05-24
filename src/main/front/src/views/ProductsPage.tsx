@@ -40,11 +40,17 @@ function ProductsPage() {
           ))}
         </Grid>
         {modal && <CreateProduct closeModal={handleOpenModal} />}
-        <Box display="flex" justifyContent="center" mt={4}>
-          <Button variant="contained" color="primary" onClick={handleOpenModal}>
-            Create
-          </Button>
-        </Box>
+        {localStorage.getItem("roles")?.includes("ADMIN") && (
+          <Box display="flex" justifyContent="center" mt={4}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOpenModal}
+            >
+              Create
+            </Button>
+          </Box>
+        )}
       </Container>
     </>
   );

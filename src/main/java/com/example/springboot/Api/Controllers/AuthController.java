@@ -1,7 +1,9 @@
 package com.example.springboot.Api.Controllers;
 
+import com.example.springboot.Core.Dto.TokenDto;
 import com.example.springboot.Core.Dto.UserDto;
 import com.example.springboot.Core.Dto.LoginResponseDto;
+import com.example.springboot.Core.Interfaces.Services.IAuthorizationService;
 import com.example.springboot.Core.Interfaces.Services.ITokenService;
 import com.example.springboot.Core.Models.User;
 import jakarta.validation.Valid;
@@ -29,14 +31,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody @Valid UserDto data) {
+    public ResponseEntity<Object> login(@RequestBody @Valid UserDto userDto) {
         try{
-            var userPassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+            var userPassword = new UsernamePasswordAuthenticationToken(userDto.login(), userDto.password());
             var auth = authManager.authenticate(userPassword);
             var token = tokenService.generateToken((User) auth.getPrincipal());
-            return ResponseEntity.status(HttpStatus.OK).body(new LoginResponseDto(token));
+            var roles = ((User) auth.getPrincipal()).getRoles();
+
+            TokenDto tokenResponse = new TokenDto(userDto.login(), token, roles);
+            return ResponseEntity.status(HttpStatus.OK).body(tokenResponse);
         }catch(AuthenticationException ex){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex);
         }
     }
 }

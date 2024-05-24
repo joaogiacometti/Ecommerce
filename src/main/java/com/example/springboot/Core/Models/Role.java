@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name="ROLES")
+@Table(name = "ROLES")
 public class Role implements Serializable {
 
     @Id

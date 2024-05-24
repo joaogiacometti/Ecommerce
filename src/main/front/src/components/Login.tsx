@@ -4,6 +4,8 @@ import { Box, Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorSnackbar from "./ErrorSnackbar";
+import { setToken } from "@/helpers/AuthHelper";
+import Token from "@/interfaces/Token";
 
 export default function Login() {
   const { data, mutate, isSuccess, isError, error } = useUserMutation();
@@ -14,17 +16,19 @@ export default function Login() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const newUser: User = {
+    const user: User = {
       login: formData.get("login") as string,
       password: formData.get("password") as string,
     };
 
-    mutate(newUser);
+    mutate(user);
   };
 
   useEffect(() => {
     if (isSuccess) {
-      localStorage.setItem("token", data?.data.token!);
+      const tokenResponse: Token = data!.data;
+      console.log(tokenResponse);
+      setToken(tokenResponse);
       navigate("/");
     } else if (isError) {
       setErrorSnackbar(true);
